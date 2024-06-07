@@ -32,12 +32,23 @@ session_start();
         if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']) {
             // User is authenticated, hide login button and show logout button
             $logout = 'logout.php';
-            echo "<button id='logoutBtn'><a href='logout.php'>Logout</a></button>";
-
+            //echo "<button id='logoutBtn'><a href='logout.php'>Logout</a></button>";
+            echo "<div class='dropdown' id='logoutBtn'>
+                <button class='dropbtn'>{$_SESSION['uname']}
+                    <i class='fa fa-caret-down'></i>
+                </button>
+                <div class='dropdown-content'>
+                    <a href='my-profile.php'>My Profile</a>
+                    <a href='my-list.php'>My List</a>
+                    <a href='logout.php'>Logout</a>
+                </div>
+                </div>";
         } else {
             // User is not authenticated, show login button and hide logout button
             $login = 'login.php';
-            echo "<button id='loginBtn'>Login</button>";
+            echo "<div class='dropdown'>";
+            echo "<a id='loginBtn' href='login.php'>Login</a>";
+            echo "</div>";
         }
         ?>
     </div>
@@ -138,19 +149,19 @@ session_start();
         var logoutBtn = document.getElementById('logoutBtn');
 
         // Add event listener for login button click
-        loginBtn.addEventListener('click', function() {
+        /*loginBtn.addEventListener('click', function() {
             // Redirect to login page
             window.location.href = 'login.php';
-        });
+        });*/
 
         // Add event listener for logout button click
-        logoutBtn.addEventListener('click', function() {
+        /*logoutBtn.addEventListener('click', function() {
             // Perform logout operation, e.g., redirect to logout script
             window.location.href = 'logout.php';
-        });
+        });*/
 
         // Check if user is logged in and toggle button visibility
-        <?php
+        /*?php
         if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']) {
             echo 'loginBtn.style.display = "none";';
             echo 'logoutBtn.style.display = "block";';
@@ -158,7 +169,7 @@ session_start();
             echo 'loginBtn.style.display = "block";';
             echo 'logoutBtn.style.display = "none";';
         }
-        ?>
+        ?>*/
     });
 </script>
 </body>

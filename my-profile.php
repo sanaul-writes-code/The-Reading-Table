@@ -34,37 +34,6 @@ if (!$conn) {
 
 $sql = "SELECT * FROM users WHERE username ='{$_SESSION["uname"]}'";
 $result = mysqli_query($conn, $sql);
-
-//begin here
-/*if (mysqli_num_rows($result) > 0) {
-    echo "<h2>My Profile</h2>";
-    echo "<table>";
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "<tr><th>First Name: </th><td>".$row["first_name"]."</td></tr>";
-        echo "<tr><th>Last Name: </th><td>".$row["last_name"]."</td></tr>";
-        echo "<tr><th>Email: </th><td>".$row["email"]."</td></tr>";
-    }
-    echo "</table>";
-} else {
-    echo "0 results";
-}
-
-$get_data_sql = "SELECT * FROM users WHERE username ='{$_SESSION['uname']}'";
-$data_result = mysqli_query($conn, $get_data_sql);
-
-if (mysqli_num_rows($data_result) > 0) {
-    while($row = mysqli_fetch_assoc($data_result)) {
-        //var_dump($result);
-        $fname = $row['first_name'];
-        $lname = $row['last_name'];
-    }
-} else {
-    echo "0 results";
-}
-
-mysqli_close($conn);*/
-//end here
 ?>
 
 <!DOCTYPE html>
@@ -119,12 +88,23 @@ mysqli_close($conn);*/
         if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']) {
             // User is authenticated, hide login button and show logout button
             $logout = 'logout.php';
-            echo "<button id='logoutBtn'><a href='logout.php'>Logout</a></button>";
-
+            //echo "<button id='logoutBtn'><a href='logout.php'>Logout</a></button>";
+            echo "<div class='dropdown' id='logoutBtn'>
+                <button class='dropbtn'>{$_SESSION['uname']}
+                    <i class='fa fa-caret-down'></i>
+                </button>
+                <div class='dropdown-content'>
+                    <a href='my-profile.php'>My Profile</a>
+                    <a href='my-list.php'>My List</a>
+                    <a href='logout.php'>Logout</a>
+                </div>
+                </div>";
         } else {
             // User is not authenticated, show login button and hide logout button
             $login = 'login.php';
-            echo "<button id='loginBtn'>Login</button>";
+            echo "<div class='dropdown'>";
+            echo "<a id='loginBtn' href='login.php'>Login</a>";
+            echo "</div>";
         }
         ?>
     </div>
@@ -217,7 +197,7 @@ mysqli_close($conn);*/
         var logoutBtn = document.getElementById('logoutBtn');
 
         // Add event listener for login button click
-        loginBtn.addEventListener('click', function() {
+        /*loginBtn.addEventListener('click', function() {
             // Redirect to login page
             window.location.href = 'login.php';
         });
@@ -226,7 +206,7 @@ mysqli_close($conn);*/
         logoutBtn.addEventListener('click', function() {
             // Perform logout operation, e.g., redirect to logout script
             window.location.href = 'logout.php';
-        });
+        });*/
 
         // Check if user is logged in and toggle button visibility
         <?php
